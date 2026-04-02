@@ -54,9 +54,6 @@ CHATGLM_6B_PRETRAINED_MODEL_ARCHIVE_LIST = [
 def default_init(cls, *args, **kwargs):
     return cls(*args, **kwargs)
 
-
-work_dir = "/home/liangxingyuan/LanguageModels/chatglm2-6b"
-
 import pickle as pkl
 import os
 from typing import Iterator, Tuple, List, Union, Iterable
