@@ -7,12 +7,11 @@ import random
 
 
 class FB15kIndexMapper:
-    # 特殊token：<SoEB>嵌入区块起始标记，<EoEB>嵌入区块结束标记，<AGG>实体聚合标记, <SEP>分隔符
     special_token_dict = {
             "<SoEB>": 0,  # Start of Entity Block
             "<EoEB>": 1,  # End of Entity Block
             "<AGG>": 2,  # Aggregation Token
-            "<MASK>": 3,  # Separator Token
+            "<MASK>": 3,  
         }
     
     def __init__(self, entities, relations):
@@ -85,52 +84,6 @@ class Entity(Iterable):
     def __iter__(self) -> Iterator:
         for i in self.items:
             yield i
-    
-
-            
-@dataclass
-class R:
-    belongs_to = Relation(comment="从属于")
-    is_charged_by = Relation(comment="被掌管于")
-    deliver = Relation(comment="配送")
-    has = Relation(comment="包含")
-    manage = Relation(comment="管理")
-    instance_of = Relation(comment="掌管")
-    charge = Relation(comment="实例化于")
-
-
-@dataclass
-class P:
-    Site_ID = Property(comment="站点编号")
-    Address = Property(comment="地址")
-    Name = Property(comment="名称")
-    Leader = Property(comment="站长")
-    Service_Range = Property(comment="服务范围")
-    Province_Code = Property(comment="战区编号")
-    District_Code = Property(comment="片区编号")
-    City = Property(comment="所在城市")
-    Country_ID = Property(comment="所在乡镇的编号")
-    DMS_ID = Property(comment="所服务的分拣中心编号")
-    DMS_Name = Property(comment="所服务的分拣中心名称")
-    Road_ID = Property(comment="路区编号")
-    Road_Type = Property(comment="路区类型")
-    Distance_to_Station = Property(comment="路区距物流营业部的距离")
-    Number_of_Couriers = Property(comment="快递员数量")
-    Delivery_Hardness = Property(comment="配送难度")
-
-cls2idx = {
-    '<class>': 0,
-    '<Business_Area>': 1,
-    '<Logistics_Province>': 2,
-    '<Logistics_District>': 3,
-    '<Delivery_Station>': 4,
-    '<Service_Road>': 5,
-    '<Manager>': 6,
-    '<Driver>': 7,
-    '<Courier>': 8,
-    '<Delivery_Robot>': 9,
-    '<Parcel>': 10,
-}
 
 def build_adjacency_list(triples):
     adjacency_list = {}
@@ -207,8 +160,6 @@ class GraphAdjacencyIndexer:
     
 
 def parse_info(infos):
-    
-    # return parse_info_classification(infos)
     return parse_info_ranking(infos)
 
 def parse_info_classification(infos):
@@ -326,9 +277,3 @@ def parse_info_ranking(infos):
 
 
     return task_type, sub_pos, kb_ids, g1rel, g1mask, g2rel, rel_idx, label, score_pos
-
-if __name__ == '__main__':
-    import torch
-    info = "3 1691 37 39 46 55 75 77 141 0 499 1 0 1939 775 1304 1320 1913 1026 1070 499 1 0 2000 1 2025 2000 2000 2000 2000 2000 2000 1 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 0 0 1 1 1 1 1 1 1"
-    info = torch.tensor([[int(i) for i in info.split()]])
-    print(parse_info(info))
