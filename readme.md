@@ -1,6 +1,6 @@
-# Native Knowledge Graph Understanding for LLMs via Graph Embedded Learning
+# Aligning Graph Structure with Language Semantics for Knowledge-Enabled Large Language Models
 
-The official repository of our paper: "Native Knowledge Graph Understanding for LLMs via Graph Embedded Learning"
+The official repository of our paper: "Aligning Graph Structure with Language Semantics for Knowledge-Enabled Large Language Models"
 
 Currently, only the core algorithm implementation is available.
 The complete code and data for reproduction are coming in the future.
